@@ -30,7 +30,7 @@ class ChatTrimmerGUI:
         style.theme_use('aqua' if sys.platform == 'darwin' else 'clam')
         
         self.input_file = tk.StringVar()
-        self.output_dir = tk.StringVar(value=str(Path.home()))
+        self.output_dir = tk.StringVar()  # Will default to input file's directory
         self.start_date = tk.StringVar()
         self.end_date = tk.StringVar()
         self.output_format = tk.StringVar(value="md")
@@ -113,6 +113,8 @@ class ChatTrimmerGUI:
         )
         if file:
             self.input_file.set(file)
+            # Auto-set output directory to input file's directory
+            self.output_dir.set(str(Path(file).parent))
     
     def browse_output(self):
         """Browse for output directory"""
@@ -260,8 +262,10 @@ class ChatTrimmerGUI:
                 self.status_var.set("Ready")
                 return
             
-            output_dir = Path(self.output_dir.get())
             input_path = Path(self.input_file.get())
+            # Use input file's directory if no output directory specified
+            output_dir_str = self.output_dir.get()
+            output_dir = Path(output_dir_str) if output_dir_str else input_path.parent
             date_range = f"{start_date.strftime('%d_%m_%y')}_to_{end_date.strftime('%d_%m_%y')}"
             base_name = f"{input_path.stem}_{date_range}"
             

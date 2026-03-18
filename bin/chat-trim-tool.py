@@ -232,7 +232,7 @@ def main():
     parser.add_argument('--end', help='End date (YYYY-MM-DD). Defaults to today')
     parser.add_argument('--format', choices=['json', 'md', 'both'], default='md',
                         help='Output format (default: md)')
-    parser.add_argument('--output-dir', default='.', help='Output directory (default: current directory)')
+    parser.add_argument('--output-dir', default=None, help='Output directory (default: same as input file)')
     parser.add_argument('--output-name', help='Custom output filename (without extension)')
     parser.add_argument('--split-by-day', action='store_true',
                         help='Split into separate daily files organized by year-month')
@@ -245,8 +245,11 @@ def main():
         print(f"Error: Input file not found: {input_path}", file=sys.stderr)
         sys.exit(1)
     
-    # Create output directory if needed
-    output_dir = Path(args.output_dir)
+    # Set output directory to input file's directory if not specified
+    if args.output_dir is None:
+        output_dir = input_path.parent
+    else:
+        output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # Load JSON first (before date parsing)
