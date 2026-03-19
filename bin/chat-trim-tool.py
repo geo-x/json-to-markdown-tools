@@ -56,8 +56,8 @@ def format_user_message(text, style='none', color='green'):
         # Emoji prefix style
         return f"👤 **User:**\n{text}"
     elif style == 'color':
-        # Colored text (HTML) - wrapped in div for better rendering
-        return f'<div style="color:{color}; font-weight: bold;">👤 User:</div>\n\n{text}'
+        # Colored text (HTML) - wrap entire message in colored div
+        return f'<div style="color:{color};">\n\n👤 **User:**\n\n{text}\n\n</div>'
     else:
         # Default style (no special formatting)
         return f"**User:**\n{text}"
