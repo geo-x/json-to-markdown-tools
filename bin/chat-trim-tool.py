@@ -56,8 +56,8 @@ def format_user_message(text, style='none', color='green'):
         # Emoji prefix style
         return f"👤 **User:**\n{text}"
     elif style == 'color':
-        # Colored text (HTML)
-        return f'<span style="color:{color}">**👤 User:**</span>\n{text}'
+        # Colored text (HTML) - wrapped in div for better rendering
+        return f'<div style="color:{color}; font-weight: bold;">👤 User:</div>\n\n{text}'
     else:
         # Default style (no special formatting)
         return f"**User:**\n{text}"
@@ -80,7 +80,8 @@ def format_assistant_message(text, style='none', color='green'):
     elif style == 'emoji':
         return f"🤖 **Assistant:**\n{text}"
     elif style == 'color':
-        return f'<span style="color:{color}">**🤖 Assistant:**</span>\n{text}'
+        # Colored text (HTML) - wrapped in div for better rendering
+        return f'<div style="color:{color}; font-weight: bold;">🤖 Assistant:</div>\n\n{text}'
     else:
         return f"**Assistant:**\n{text}"
 
