@@ -65,23 +65,8 @@ def format_user_message(text, style='none', color='green'):
 
 def format_assistant_message(text, style='none', color='green'):
     """Format assistant response based on style option"""
-    if style == 'block':
-        lines = text.split('\n')
-        quoted = '\n'.join([f"> {line}" if line else ">" for line in lines])
-        return f"> **🤖 Assistant:**\n{quoted}"
-    elif style == 'box':
-        lines = text.split('\n')
-        max_width = max([len(line) for line in lines] + [20])
-        box_width = max_width + 4
-        box_top = "╔" + "═" * (box_width - 2) + "╗"
-        box_bottom = "╚" + "═" * (box_width - 2) + "╝"
-        box_content = '\n'.join([f"║ {line:<{max_width}} ║" for line in lines])
-        return f"{box_top}\n║ 🤖 Assistant {' ' * (max_width - 12)} ║\n{box_content}\n{box_bottom}"
-    elif style == 'emoji':
-        return f"🤖 **Assistant:**\n{text}"
-    else:
-        # Default style (no color for assistant messages)
-        return f"**Assistant:**\n{text}"
+    # Assistant messages always use default formatting (no styling)
+    return f"**Assistant:**\n{text}"
 
 
 def filter_requests_by_date(requests, start_date, end_date):
