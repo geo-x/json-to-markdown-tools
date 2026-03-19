@@ -15,6 +15,12 @@ Convert VS Code Copilot chat JSON exports to markdown and filter by date range. 
 - Optional start date (defaults to earliest message)
 - Precise YYYY-MM-DD format validation
 
+🎨 **Customizable Output Styling**
+- **5 style options**: None, Emoji, Block, Box, Color
+- **Color customization**: Use any CSS color or hex value
+- **HTML support**: Compatible with web-based documentation platforms
+- See [Styling Guide](docs/STYLING.md) for examples
+
 📂 **Multiple Export Options**
 - **JSON**: Filtered original structure
 - **Markdown**: Professional formatting with timestamps and metadata
@@ -36,8 +42,11 @@ python3 chat-trim-tool.py "chat.json" --start "2026-03-12" --format markdown --s
 # Filter and save as JSON
 python3 chat-trim-tool.py "chat.json" --start "2026-03-01" --end "2026-03-18" --format json
 
-# Combined markdown from specific date onward
-python3 chat-trim-tool.py "chat.json" --start "2026-03-12" --format markdown
+# Export with emoji styling
+python3 chat-trim-tool.py "chat.json" --user-style emoji --format markdown
+
+# Export with colored HTML styling
+python3 chat-trim-tool.py "chat.json" --user-style color --style-color blue --format markdown
 ```
 
 ### GUI (Graphical Interface)

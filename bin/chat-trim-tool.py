@@ -36,6 +36,55 @@ def parse_date(date_str):
         raise ValueError(f"Invalid date format: {date_str}. Use YYYY-MM-DD")
 
 
+def format_user_message(text, style='none', color='green'):
+    """Format user message based on style option"""
+    if style == 'block':
+        # Blockquote style
+        lines = text.split('\n')
+        quoted = '\n'.join([f"> {line}" if line else ">" for line in lines])
+        return f"> **👤 User:**\n{quoted}"
+    elif style == 'box':
+        # ASCII box style
+        lines = text.split('\n')
+        max_width = max([len(line) for line in lines] + [20])
+        box_width = max_width + 4
+        box_top = "╔" + "═" * (box_width - 2) + "╗"
+        box_bottom = "╚" + "═" * (box_width - 2) + "╝"
+        box_content = '\n'.join([f"║ {line:<{max_width}} ║" for line in lines])
+        return f"{box_top}\n║ 👤 User {' ' * (max_width - 7)} ║\n{box_content}\n{box_bottom}"
+    elif style == 'emoji':
+        # Emoji prefix style
+        return f"👤 **User:**\n{text}"
+    elif style == 'color':
+        # Colored text (HTML)
+        return f'<span style="color:{color}">**👤 User:**</span>\n{text}'
+    else:
+        # Default style (no special formatting)
+        return f"**User:**\n{text}"
+
+
+def format_assistant_message(text, style='none', color='green'):
+    """Format assistant response based on style option"""
+    if style == 'block':
+        lines = text.split('\n')
+        quoted = '\n'.join([f"> {line}" if line else ">" for line in lines])
+        return f"> **🤖 Assistant:**\n{quoted}"
+    elif style == 'box':
+        lines = text.split('\n')
+        max_width = max([len(line) for line in lines] + [20])
+        box_width = max_width + 4
+        box_top = "╔" + "═" * (box_width - 2) + "╗"
+        box_bottom = "╚" + "═" * (box_width - 2) + "╝"
+        box_content = '\n'.join([f"║ {line:<{max_width}} ║" for line in lines])
+        return f"{box_top}\n║ 🤖 Assistant {' ' * (max_width - 12)} ║\n{box_content}\n{box_bottom}"
+    elif style == 'emoji':
+        return f"🤖 **Assistant:**\n{text}"
+    elif style == 'color':
+        return f'<span style="color:{color}">**🤖 Assistant:**</span>\n{text}'
+    else:
+        return f"**Assistant:**\n{text}"
+
+
 def filter_requests_by_date(requests, start_date, end_date):
     """Filter requests by date range"""
     start_ts = start_date.timestamp() * 1000
@@ -61,7 +110,7 @@ def split_requests_by_day(requests):
     return dict(sorted(daily_groups.items()))
 
 
-def create_markdown(requests):
+def create_markdown(requests, user_style='none', style_color='green'):
     """Convert chat requests to markdown format"""
     if not requests:
         return "# Chat Export\n\nNo messages found in the specified date range.\n"
@@ -92,7 +141,7 @@ def create_markdown(requests):
         
         md_content += f"## Message {i}\n"
         md_content += f"**Time:** {date_str}\n\n"
-        md_content += f"### User\n{message_text}\n\n"
+        md_content += format_user_message(message_text, user_style, style_color) + "\n\n"
         
         # Extract ALL response content
         response_list = req.get('response', [])
@@ -110,7 +159,7 @@ def create_markdown(requests):
                 continue
             elif isinstance(value, str) and value.strip():
                 # Regular response text
-                md_content += f"### GitHub Copilot\n{value}\n\n"
+                md_content += format_assistant_message(value, user_style, style_color) + "\n\n"
         
         # Include code blocks if present
         result = req.get('result', {})
@@ -136,7 +185,7 @@ def create_markdown(requests):
     return md_content
 
 
-def create_day_markdown(requests, date_obj):
+def create_day_markdown(requests, date_obj, user_style='none', style_color='green'):
     """Create markdown for a single day of requests"""
     if not requests:
         return "# No messages for this day\n"
@@ -163,7 +212,7 @@ def create_day_markdown(requests, date_obj):
             message_text = str(message)
         
         md_content += f"## {i}. {time_str}\n\n"
-        md_content += f"**User:**\n{message_text}\n\n"
+        md_content += format_user_message(message_text, user_style, style_color) + "\n\n"
         
         # Extract ALL response content (thinking blocks, code, everything)
         response_list = req.get('response', [])
@@ -181,7 +230,7 @@ def create_day_markdown(requests, date_obj):
                 continue
             elif isinstance(value, str) and value.strip():
                 # Regular response text
-                md_content += f"**Assistant:**\n{value}\n\n"
+                md_content += format_assistant_message(value, assistant_style, style_color) + "\n\n"
         
         # Include code blocks if present in metadata
         result = req.get('result', {})

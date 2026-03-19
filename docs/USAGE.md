@@ -20,6 +20,8 @@ python3 chat-trim-tool.py FILE [OPTIONS]
 | `--format` | text | No | markdown | Output format: `json`, `markdown`, or `both` |
 | `--split-by-day` | flag | No | False | Split output into daily files (YYYY-MM/DD.format) |
 | `--output` | path | No | Input directory | Where to save processed files |
+| `--user-style` | text | No | none | Styling option: `none`, `emoji`, `block`, `box`, or `color` |
+| `--style-color` | text | No | green | CSS color for styled output (e.g., `blue`, `#FF0000`) |
 | `--help` | flag | No | — | Show help message |
 
 ### Output Format Details
@@ -73,6 +75,27 @@ output/
 
 The directory is created if it doesn't exist.
 
+### Output Styling
+
+Customize how user and assistant messages appear in your markdown output:
+
+#### Style Options
+
+- **`none`** (default): Simple bold formatting
+- **`emoji`**: Adds 👤 and 🤖 emoji icons  
+- **`block`**: Blockquote-style indentation with `>`
+- **`box`**: Unicode box borders around messages
+- **`color`**: HTML span tags with CSS colors
+
+#### Color Options
+
+Any CSS color value is supported:
+- Named colors: `blue`, `red`, `green`, `purple`, `darkgreen`, etc.
+- Hex colors: `#FF0000`, `#00FF00`, etc.
+- RGB format: `rgb(255, 0, 0)` (for HTML contexts)
+
+See the [Styling Guide](STYLING.md) for detailed examples of each style.
+
 ## Examples
 
 ### Example 1: Filter Last Month, Split by Day
@@ -124,6 +147,48 @@ python3 chat-trim-tool.py "big-chat.json" \
 
 **Result**:
 ```
+~/Chat-Archive/
+├── 2026-01/
+│   ├── 01.md
+│   ├── 01.json
+│   └── ...
+└── 2026-12/
+    └── 25.md
+```
+
+### Example 5: Export with Emoji Styling
+
+```bash
+python3 chat-trim-tool.py "chat.json" \
+  --start "2026-03-10" \
+  --user-style emoji \
+  --format markdown
+```
+
+**Output includes**: 👤 User and 🤖 Assistant labels with emoji icons
+
+### Example 6: Professional Documentation with Block Style
+
+```bash
+python3 chat-trim-tool.py "project-chat.json" \
+  --user-style block \
+  --format markdown \
+  --split-by-day
+```
+
+**Output**: Conversation formatted as blockquotes, ideal for documentation
+
+### Example 7: Colored Web Export
+
+```bash
+python3 chat-trim-tool.py "chat.json" \
+  --user-style color \
+  --style-color "#2E86AB" \
+  --format markdown \
+  --output ~/Web-Docs/
+```
+
+**Output**: HTML-styled color spans compatible with GitHub Pages, Notion, etc.
 ~/Chat-Archive/
 ├── 2026-01/
 │   ├── 01.json
