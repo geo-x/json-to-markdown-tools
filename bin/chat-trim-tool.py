@@ -230,7 +230,7 @@ def create_day_markdown(requests, date_obj, user_style='none', style_color='gree
                 continue
             elif isinstance(value, str) and value.strip():
                 # Regular response text
-                md_content += format_assistant_message(value, assistant_style, style_color) + "\n\n"
+                md_content += format_assistant_message(value, user_style, style_color) + "\n\n"
         
         # Include code blocks if present in metadata
         result = req.get('result', {})
