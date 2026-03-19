@@ -79,10 +79,8 @@ def format_assistant_message(text, style='none', color='green'):
         return f"{box_top}\n║ 🤖 Assistant {' ' * (max_width - 12)} ║\n{box_content}\n{box_bottom}"
     elif style == 'emoji':
         return f"🤖 **Assistant:**\n{text}"
-    elif style == 'color':
-        # Colored text (HTML) - wrapped in div for better rendering
-        return f'<div style="color:{color}; font-weight: bold;">🤖 Assistant:</div>\n\n{text}'
     else:
+        # Default style (no color for assistant messages)
         return f"**Assistant:**\n{text}"
 
 
