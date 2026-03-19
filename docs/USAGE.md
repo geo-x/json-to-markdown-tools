@@ -93,6 +93,7 @@ Any CSS color value is supported:
 - Named colors: `blue`, `red`, `green`, `purple`, `darkgreen`, etc.
 - Hex colors: `#FF0000`, `#00FF00`, etc.
 - RGB format: `rgb(255, 0, 0)` (for HTML contexts)
+- **Default**: `green` (used when `--style-color` is not specified)
 
 See the [Styling Guide](STYLING.md) for detailed examples of each style.
 

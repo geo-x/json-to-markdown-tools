@@ -126,7 +126,12 @@ python3 chat-trim-tool.py chat.json --user-style color --style-color "#FF0000"
 
 # Named CSS colors
 python3 chat-trim-tool.py chat.json --user-style color --style-color darkgreen
+
+# Omit --style-color to use default (green)
+python3 chat-trim-tool.py chat.json --user-style color
 ```
+
+**Default**: `green` (used when `--style-color` is not specified)
 
 ### Supported Color Values
 
