@@ -97,6 +97,48 @@ Creates daily files for both formats:
 ...
 ```
 
+### Task 5: Add Emoji Styling for Friendly Look
+
+```bash
+python3 bin/chat-trim-tool.py "chat.json" \
+  --user-style emoji \
+  --format markdown
+```
+
+Output includes: 👤 **User:** and 🤖 **Assistant:** with emoji icons
+
+### Task 6: Professional Blockquote Style for Documentation
+
+```bash
+python3 bin/chat-trim-tool.py "chat.json" \
+  --user-style block \
+  --split-by-day \
+  --format markdown
+```
+
+Messages formatted as blockquotes: `> **User:**` — Perfect for docs
+
+### Task 7: Colorful HTML Export for Web
+
+```bash
+python3 bin/chat-trim-tool.py "chat.json" \
+  --user-style color \
+  --style-color blue \
+  --format markdown
+```
+
+Exports with HTML color spans: compatible with Notion, GitHub Pages, etc.
+
+### Task 8: Box Style for Eye-Catching Highlights
+
+```bash
+python3 bin/chat-trim-tool.py "chat.json" \
+  --user-style box \
+  --format markdown
+```
+
+Messages enclosed in Unicode borders: ╔═══╗ — Great for highlighting important conversations
+
 ## What You Get
 
 Each markdown file includes:
@@ -106,6 +148,7 @@ Each markdown file includes:
 - ✅ Code snippets with syntax highlighting
 - ✅ Filenames and programming languages
 - ✅ Full conversation context
+- ✅ **Customizable styling** (5 style options available)
 
 ## Troubleshooting
 
@@ -119,6 +162,7 @@ Each markdown file includes:
 ## Next Steps
 
 - Read [USAGE.md](USAGE.md) for advanced options
+- Explore [STYLING.md](STYLING.md) for all style examples and color options
 - Check [USE_CASES.md](USE_CASES.md) for real-world examples
 - See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for detailed help
 - Visit [INSTALLATION.md](INSTALLATION.md) for platform-specific setup
