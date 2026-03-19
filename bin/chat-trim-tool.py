@@ -285,6 +285,10 @@ def main():
     parser.add_argument('--output-name', help='Custom output filename (without extension)')
     parser.add_argument('--split-by-day', action='store_true',
                         help='Split into separate daily files organized by year-month')
+    parser.add_argument('--user-style', choices=['none', 'emoji', 'block', 'box', 'color'], default='none',
+                        help='Style for user/assistant messages (default: none)')
+    parser.add_argument('--style-color', default='green',
+                        help='Color for styled output (CSS color or hex value, default: green)')
     
     args = parser.parse_args()
     
@@ -368,7 +372,7 @@ def main():
                 output_files.append(json_path)
             
             if args.format in ['md', 'both']:
-                md_content = create_day_markdown(day_requests, date_obj)
+                md_content = create_day_markdown(day_requests, date_obj, args.user_style, args.style_color)
                 md_path = year_month_dir / f"{day_num}.md"
                 save_markdown(md_content, md_path)
                 output_files.append(md_path)
@@ -405,7 +409,7 @@ def main():
             print(f"✓ JSON saved: {json_path}")
         
         if args.format in ['md', 'both']:
-            md_content = create_markdown(filtered_requests)
+            md_content = create_markdown(filtered_requests, args.user_style, args.style_color)
             md_path = output_dir / f"{base_name}.md"
             save_markdown(md_content, md_path)
             output_files.append(md_path)
