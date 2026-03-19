@@ -9,9 +9,9 @@ The tool supports multiple output styles for both user messages and assistant re
 | Style | Description | Best For |
 |-------|-------------|----------|
 | `none` | Simple bold formatting (default) | Clean, minimal output |
-| `emoji` | Emoji icons with bold labels | Friendly, visual documentation |
-| `block` | Blockquote style indentation | Citation-like formatting |
-| `box` | Unicode box border formatting | Eye-catching highlights |
+| `emoji` | Emoji icons with user indicators | Friendly, visual reference |
+| `divider` | Thick unicode blocks above/below | Clear visual separation |
+| `divider-thin` | Thin unicode blocks above/below | Subtle but distinctive |
 | `color` | HTML color spans | Web-based documentation |
 
 ## CLI Usage
@@ -58,42 +58,44 @@ How do I create a class in Python?
 You can create a class using the class keyword...
 ```
 
-#### 3. Block Style
+#### 3. Divider Style
 
-Formats messages as blockquotes, perfect for citation-style documentation.
+Thick unicode block dividers above and below user messages for clear visual separation.
 
 ```bash
-python3 chat-trim-tool.py chat.json --user-style block --format markdown
+python3 chat-trim-tool.py chat.json --user-style divider --format markdown
 ```
 
 **Output Example:**
 ```
-> **👤 User:**
-> How do I create a class in Python?
+🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢
+▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅
+**👤 User:**
+How do I create a class in Python?
+▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅
 
-> **🤖 Assistant:**
-> You can create a class using the class keyword...
+**Assistant:**
+You can create a class using the class keyword...
 ```
 
-#### 4. Box Style
+#### 4. Divider-Thin Style
 
-Wraps messages in Unicode box borders for prominent visual display.
+Thin unicode block dividers for subtle but distinctive separation.
 
 ```bash
-python3 chat-trim-tool.py chat.json --user-style box --format markdown
+python3 chat-trim-tool.py chat.json --user-style divider-thin --format markdown
 ```
 
 **Output Example:**
 ```
-╔═════════════════════════════════════════════════════════════════╗
-║ 👤 User                                                      ║
-║ How do I create a class in Python?                           ║
-╚═════════════════════════════════════════════════════════════════╝
+🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢
+▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+**👤 User:**
+How do I create a class in Python?
+▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 
-╔═════════════════════════════════════════════════════════════════╗
-║ 🤖 Assistant                                                  ║
-║ You can create a class using the class keyword...            ║
-╚═════════════════════════════════════════════════════════════════╝
+**Assistant:**
+You can create a class using the class keyword...
 ```
 
 #### 5. Color Style (HTML)
@@ -110,6 +112,29 @@ python3 chat-trim-tool.py chat.json --user-style color --style-color blue --form
 How do I create a class in Python?
 
 <span style="color:blue">**🤖 Assistant:**</span>
+You can create a class using the class keyword...
+```
+
+#### 5. Color Style (HTML)
+
+Outputs HTML `<div>` tags with CSS color styling. Ideal for web-based documentation and systems that support inline HTML.
+
+```bash
+python3 chat-trim-tool.py chat.json --user-style color --style-color blue --format markdown
+```
+
+**Output:**
+```html
+🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢
+<div style="color:blue;">
+
+👤 **User:**
+
+How do I create a class in Python?
+
+</div>
+
+**Assistant:**
 You can create a class using the class keyword...
 ```
 

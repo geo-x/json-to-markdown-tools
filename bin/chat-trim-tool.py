@@ -40,21 +40,15 @@ def format_user_message(text, style='none', color='green'):
     """Format user message based on style option"""
     # Always add distinctive green circle marker row for all messages
     marker = "🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢"
+    divider_thick = "▅" * 30
+    divider_thin = "▁" * 30
     
-    if style == 'block':
-        # Blockquote style
-        lines = text.split('\n')
-        quoted = '\n'.join([f"> {line}" if line else ">" for line in lines])
-        return f"{marker}\n> **👤 User:**\n{quoted}"
-    elif style == 'box':
-        # ASCII box style
-        lines = text.split('\n')
-        max_width = max([len(line) for line in lines] + [20])
-        box_width = max_width + 4
-        box_top = "╔" + "═" * (box_width - 2) + "╗"
-        box_bottom = "╚" + "═" * (box_width - 2) + "╝"
-        box_content = '\n'.join([f"║ {line:<{max_width}} ║" for line in lines])
-        return f"{marker}\n{box_top}\n║ 👤 User {' ' * (max_width - 7)} ║\n{box_content}\n{box_bottom}"
+    if style == 'divider':
+        # Thick unicode block dividers above and below
+        return f"{marker}\n{divider_thick}\n**👤 User:**\n{text}\n{divider_thick}"
+    elif style == 'divider-thin':
+        # Thin unicode block dividers above and below
+        return f"{marker}\n{divider_thin}\n**👤 User:**\n{text}\n{divider_thin}"
     elif style == 'emoji':
         # Emoji prefix style
         return f"{marker}\n👤 **User:**\n{text}"
@@ -272,8 +266,8 @@ def main():
     parser.add_argument('--output-name', help='Custom output filename (without extension)')
     parser.add_argument('--split-by-day', action='store_true',
                         help='Split into separate daily files organized by year-month')
-    parser.add_argument('--user-style', choices=['none', 'emoji', 'block', 'box', 'color'], default='none',
-                        help='Style for user/assistant messages (default: none)')
+    parser.add_argument('--user-style', choices=['none', 'emoji', 'divider', 'divider-thin', 'color'], default='none',
+                        help='Style for user messages (default: none)')
     parser.add_argument('--style-color', default='green',
                         help='Color for styled output (CSS color or hex value, default: green)')
     

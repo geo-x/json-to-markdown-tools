@@ -81,10 +81,10 @@ Customize how user and assistant messages appear in your markdown output:
 
 #### Style Options
 
-- **`none`** (default): Simple bold formatting
-- **`emoji`**: Adds 👤 and 🤖 emoji icons  
-- **`block`**: Blockquote-style indentation with `>`
-- **`box`**: Unicode box borders around messages
+- **`none`** (default): Simple bold formatting with green circle markers
+- **`emoji`**: Adds 👤 user indicator with green circle markers  
+- **`divider`**: Thick unicode block dividers above/below user messages
+- **`divider-thin`**: Thin unicode block dividers above/below user messages
 - **`color`**: HTML span tags with CSS colors
 
 #### Color Options

@@ -97,7 +97,28 @@ Creates daily files for both formats:
 ...
 ```
 
-### Task 5: Add Emoji Styling for Friendly Look
+### Task 5: Clear Visual Separators with Divider Style
+
+```bash
+python3 bin/chat-trim-tool.py "chat.json" \
+  --user-style divider \
+  --split-by-day \
+  --format markdown
+```
+
+User messages separated by thick unicode blocks (▅) — Best for readability
+
+### Task 6: Subtle Divider Style for Minimal Look
+
+```bash
+python3 bin/chat-trim-tool.py "chat.json" \
+  --user-style divider-thin \
+  --format markdown
+```
+
+User messages marked with thin unicode blocks (▁) — Minimalist aesthetic
+
+### Task 7: Add Emoji Indicators for Recognition
 
 ```bash
 python3 bin/chat-trim-tool.py "chat.json" \
@@ -105,20 +126,9 @@ python3 bin/chat-trim-tool.py "chat.json" \
   --format markdown
 ```
 
-Output includes: 👤 **User:** and 🤖 **Assistant:** with emoji icons
+Adds 👤 emoji indicator to user messages for quick scanning
 
-### Task 6: Professional Blockquote Style for Documentation
-
-```bash
-python3 bin/chat-trim-tool.py "chat.json" \
-  --user-style block \
-  --split-by-day \
-  --format markdown
-```
-
-Messages formatted as blockquotes: `> **User:**` — Perfect for docs
-
-### Task 7: Colorful HTML Export for Web
+### Task 8: Colorful HTML Export for Web
 
 ```bash
 python3 bin/chat-trim-tool.py "chat.json" \
@@ -127,17 +137,7 @@ python3 bin/chat-trim-tool.py "chat.json" \
   --format markdown
 ```
 
-Exports with HTML color spans: compatible with Notion, GitHub Pages, etc.
-
-### Task 8: Box Style for Eye-Catching Highlights
-
-```bash
-python3 bin/chat-trim-tool.py "chat.json" \
-  --user-style box \
-  --format markdown
-```
-
-Messages enclosed in Unicode borders: ╔═══╗ — Great for highlighting important conversations
+Exports with HTML color styling: compatible with Notion, GitHub Pages, etc.
 
 ## What You Get
 
@@ -148,7 +148,8 @@ Each markdown file includes:
 - ✅ Code snippets with syntax highlighting
 - ✅ Filenames and programming languages
 - ✅ Full conversation context
-- ✅ **Customizable styling** (5 style options available)
+- ✅ **Green circle markers** (🟢 × 12) on every user message for easy scanning
+- ✅ **5 style options** for user message formatting (none, emoji, divider, divider-thin, color)
 
 ## Troubleshooting
 
