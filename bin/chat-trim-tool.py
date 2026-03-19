@@ -38,11 +38,14 @@ def parse_date(date_str):
 
 def format_user_message(text, style='none', color='green'):
     """Format user message based on style option"""
+    # Always add distinctive green circle marker row for all messages
+    marker = "🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢"
+    
     if style == 'block':
         # Blockquote style
         lines = text.split('\n')
         quoted = '\n'.join([f"> {line}" if line else ">" for line in lines])
-        return f"> **👤 User:**\n{quoted}"
+        return f"{marker}\n> **👤 User:**\n{quoted}"
     elif style == 'box':
         # ASCII box style
         lines = text.split('\n')
@@ -51,16 +54,16 @@ def format_user_message(text, style='none', color='green'):
         box_top = "╔" + "═" * (box_width - 2) + "╗"
         box_bottom = "╚" + "═" * (box_width - 2) + "╝"
         box_content = '\n'.join([f"║ {line:<{max_width}} ║" for line in lines])
-        return f"{box_top}\n║ 👤 User {' ' * (max_width - 7)} ║\n{box_content}\n{box_bottom}"
+        return f"{marker}\n{box_top}\n║ 👤 User {' ' * (max_width - 7)} ║\n{box_content}\n{box_bottom}"
     elif style == 'emoji':
         # Emoji prefix style
-        return f"👤 **User:**\n{text}"
+        return f"{marker}\n👤 **User:**\n{text}"
     elif style == 'color':
         # Colored text (HTML) - wrap entire message in colored div
-        return f'<div style="color:{color};">\n\n👤 **User:**\n\n{text}\n\n</div>'
+        return f'{marker}\n<div style="color:{color};">\n\n👤 **User:**\n\n{text}\n\n</div>'
     else:
         # Default style (no special formatting)
-        return f"**User:**\n{text}"
+        return f"{marker}\n**User:**\n{text}"
 
 
 def format_assistant_message(text, style='none', color='green'):
